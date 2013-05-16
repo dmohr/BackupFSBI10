@@ -13,7 +13,7 @@ public class Hauptfenster extends javax.swing.JFrame {
      * Creates new form Hauptfenster
      */
     public Hauptfenster() {
-        initComponents();
+        initComponents(); // Komponenten initialisieren
     }
 
     /**
