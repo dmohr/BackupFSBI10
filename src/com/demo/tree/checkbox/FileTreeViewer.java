@@ -4,6 +4,8 @@ package com.demo.tree.checkbox;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
@@ -14,9 +16,12 @@ import java.util.Vector;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
@@ -32,7 +37,7 @@ import javax.swing.tree.TreeSelectionModel;
 
 
 
-public class FileTreeViewer  extends JFrame {
+public class FileTreeViewer  extends JDialog {
 
 private static final long serialVersionUID = 1L;
 public static final ImageIcon ICON_COMPUTER =  new ImageIcon("");
@@ -52,68 +57,21 @@ protected TreePath m_clickedPath;
 
 public FileTreeViewer()
 {
-    super("Bitte wählen Sie die zu sichernden Ordner aus...");
-    setSize(600, 400);
+    setTitle("Bitte wählen Sie die zu sichernden Ordner aus...");
+    setResizable(false);
+    setSize(400, 600);
+    
+    SimplePanel panel = new SimplePanel();
+    panel.setLayout(null);
+    panel.setBackground(Color.lightGray);
+    Container cp = getContentPane();
+    cp.add(panel);
 
-    DefaultMutableTreeNode top = new DefaultMutableTreeNode(
-            new IconData(ICON_COMPUTER, null, "Computer"));
-
-    DefaultMutableTreeNode node;
-    File[] roots = File.listRoots();
-    for (int k=0; k<roots.length; k++)
+    WindowListener wndCloser = new WindowAdapter()
     {
-        node = new DefaultMutableTreeNode(new IconData(ICON_DISK, null, new FileNode(roots[k])));
-        top.add(node);
-        node.add(new DefaultMutableTreeNode( new Boolean(true) ));
-    }
-
-    m_model = new DefaultTreeModel(top);
-
-    m_tree = new JTree(m_model){
-        public String getToolTipText(MouseEvent ev) 
-        {
-            if(ev == null)
-                return null;
-            TreePath path = m_tree.getPathForLocation(ev.getX(), 
-                    ev.getY());
-            if (path != null)
-            {
-                FileNode fnode = getFileNode(getTreeNode(path));
-                if (fnode==null)
-                    return null;
-                File f = fnode.getFile();
-                return (f==null ? null : f.getPath());
-            }
-            return null;
-        }
-    };
-
-    ToolTipManager.sharedInstance().registerComponent(m_tree);
-
-    m_tree.putClientProperty("JTree.lineStyle", "Angled");
-
-    TreeCellRenderer renderer = new IconCellRenderer();
-    m_tree.setCellRenderer(renderer);
-
-    m_tree.addTreeExpansionListener(new  DirExpansionListener());
-
-    m_tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION); 
-    m_tree.setShowsRootHandles(true); 
-    m_tree.setEditable(false);
-
-
-    checkTreeManager = AddCh.new CheckTreeManager(m_tree, null);
-
-
-
-    JScrollPane s = new JScrollPane();
-    s.getViewport().add(m_tree);
-    getContentPane().add(s, BorderLayout.CENTER);
-
-
-    WindowListener wndCloser = new WindowAdapter(){
         public void windowClosing(WindowEvent e){
-            System.exit(0);
+            setVisible(false); //you can't see me!
+            dispose(); //Destroy the JFrame object
         }
     };
 
@@ -121,6 +79,114 @@ public FileTreeViewer()
 
     setVisible(true);
 }
+
+class SimplePanel extends JPanel 
+{
+    JButton abbrechen;
+    JButton ok;
+    
+    public SimplePanel() 
+    {
+        ok = new JButton("OK");
+	ok.setForeground(Color.blue);
+	ok.setFont(new Font("Arial", Font.BOLD, 12));
+	ok.setBounds(194, 540, 100, 30);
+	add(ok);
+        
+        ok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okActionPerformed(evt);
+            }
+        });
+        
+        abbrechen = new JButton("Abbrechen");
+	abbrechen.setForeground(Color.blue);
+	abbrechen.setFont(new Font("Arial", Font.BOLD, 12));
+	abbrechen.setBounds(294, 540, 100, 30);
+	add(abbrechen);
+        
+        abbrechen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abbrechenActionPerformed(evt);
+            }
+        });
+                
+        DefaultMutableTreeNode top = new DefaultMutableTreeNode(
+            new IconData(ICON_COMPUTER, null, "Computer"));
+    
+        DefaultMutableTreeNode node;
+        File[] roots = File.listRoots();
+        for (int k=0; k<roots.length; k++)
+        {
+            node = new DefaultMutableTreeNode(new IconData(ICON_DISK, null, new FileNode(roots[k])));
+            top.add(node);
+            node.add(new DefaultMutableTreeNode( new Boolean(true) ));
+        }
+
+        m_model = new DefaultTreeModel(top);
+
+        m_tree = new JTree(m_model)
+        {
+            public String getToolTipText(MouseEvent ev) 
+            {
+                if(ev == null)
+                return null;
+                TreePath path = m_tree.getPathForLocation(ev.getX(), ev.getY());
+                if (path != null)
+                {
+                    FileNode fnode = getFileNode(getTreeNode(path));
+                    if (fnode==null)
+                        return null;
+                    File f = fnode.getFile();
+                    return (f==null ? null : f.getPath());
+                }
+                return null;
+            }
+   
+        };
+
+        ToolTipManager.sharedInstance().registerComponent(m_tree);
+
+        m_tree.putClientProperty("JTree.lineStyle", "Angled");
+
+        TreeCellRenderer renderer = new IconCellRenderer();
+        m_tree.setCellRenderer(renderer);
+        m_tree.addTreeExpansionListener(new  DirExpansionListener());
+
+        m_tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION); 
+        m_tree.setShowsRootHandles(true); 
+        m_tree.setEditable(false);
+
+
+        checkTreeManager = AddCh.new CheckTreeManager(m_tree, null);
+
+        JScrollPane s = new JScrollPane();
+        s.getViewport().add(m_tree);
+        s.setBounds(0, 0, 394, 540);
+        //getContentPane().add(s, BorderLayout.CENTER);
+        add(s);
+    }
+}
+
+private TreePath[] okActionPerformed(java.awt.event.ActionEvent evt) 
+{                                
+    // clear all selected path in order 
+    TreePath[] paths=getCheckTreeManager().getSelectionModel().getSelectionPaths();
+    if(paths != null){
+        for(TreePath tp : paths){
+            getCheckTreeManager().getSelectionModel().removeSelectionPath(tp);
+        }
+    }
+    setVisible(false); //you can't see me!
+    dispose(); //Destroy the JFrame object
+    return paths;
+}  
+
+private void abbrechenActionPerformed(java.awt.event.ActionEvent evt) 
+{                                         
+    setVisible(false); //you can't see me!
+    dispose(); //Destroy the JFrame object
+}  
 
 DefaultMutableTreeNode getTreeNode(TreePath path)
 {

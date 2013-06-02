@@ -53,6 +53,11 @@ public class Datenauswahl extends javax.swing.JFrame {
         });
 
         Abbrechen.setText("Abbrechen");
+        Abbrechen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AbbrechenActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,7 +92,6 @@ public class Datenauswahl extends javax.swing.JFrame {
     private void Ordnerauswaehlen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ordnerauswaehlen
         com.demo.tree.checkbox.FileTreeViewer ordnerwahl = new com.demo.tree.checkbox.FileTreeViewer();
         ordnerwahl.setVisible(true);
-        ordnerwahl.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }//GEN-LAST:event_Ordnerauswaehlen
 
     private void SpeicherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpeicherButtonActionPerformed
@@ -96,6 +100,12 @@ public class Datenauswahl extends javax.swing.JFrame {
         ordnerwahlspeichern.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         ordnerwahlspeichern.showOpenDialog(null);
     }//GEN-LAST:event_SpeicherButtonActionPerformed
+
+    private void AbbrechenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbbrechenActionPerformed
+        // TODO add your handling code here:
+        setVisible(false); //you can't see me!
+        dispose(); //Destroy the JFrame object
+    }//GEN-LAST:event_AbbrechenActionPerformed
 
     /**
      * @param args the command line arguments
