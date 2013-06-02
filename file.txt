@@ -1,0 +1,4 @@
+Compression level 5
+Filename Alexander1370168621717.zip
+Directory C:\test
+CChecksum false

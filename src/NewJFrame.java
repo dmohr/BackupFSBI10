@@ -5,12 +5,14 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Time;
+import java.util.Date;
 
 
 
 public class NewJFrame extends javax.swing.JFrame {
-double wert;
-String swert, filename,Daten;
+int wert;
+String swert,Daten;
 
     /**
      * Creates new form NewJFrame
@@ -18,6 +20,11 @@ String swert, filename,Daten;
     public NewJFrame() {
         initComponents();
         
+        wert = jSlider1.getValue();
+        swert = String.valueOf(wert);
+        jTextField1.setText(swert);
+        jTextField2.setText(System.getProperty("user.name") + System.currentTimeMillis() + ".zip");
+               
     }
 
     /**
@@ -42,12 +49,14 @@ String swert, filename,Daten;
         jLabel3 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
 
+        jFileChooser1.setCurrentDirectory(new java.io.File(jTextField3.getText()));
         jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Voreinstellungen");
 
         jSlider1.setMajorTickSpacing(1);
-        jSlider1.setMaximum(10);
+        jSlider1.setMaximum(9);
         jSlider1.setPaintLabels(true);
         jSlider1.setPaintTicks(true);
         jSlider1.setToolTipText("");
@@ -59,6 +68,7 @@ String swert, filename,Daten;
         });
 
         jTextField1.setEditable(false);
+        jTextField1.setText("5");
         jTextField1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jTextField1PropertyChange(evt);
@@ -97,7 +107,7 @@ String swert, filename,Daten;
 
         jLabel2.setText("Filename");
 
-        jTextField3.setText("Choose Directory");
+        jTextField3.setText(System.getProperty("user.home"));
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
@@ -184,7 +194,7 @@ String swert, filename,Daten;
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
         wert = jSlider1.getValue();
-        swert = (new Double(wert).toString());
+        swert = String.valueOf(wert);
         jTextField1.setText(swert);
     }//GEN-LAST:event_jSlider1StateChanged
 
@@ -197,13 +207,15 @@ System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        filename = jTextField2.getText();
-        Daten = "Compression level " + swert + "\r\n" + "Filename " + filename + "\r\n" + "Directory " + jTextField3.getText() + "\r\n" + "CChecksum " + jCheckBox1.isSelected();
- //       System.out.println(filename);
+        
+        
+        
+        Daten = "Compression level " + swert + "\r\n" + "Filename " + jTextField2.getText() + "\r\n" + "Directory " + jTextField3.getText() + "\r\n" + "CChecksum " + jCheckBox1.isSelected();
+       //System.out.println(System.getProperty("user.dir"));
         
         try {
             BufferedWriter out;
-            out = new BufferedWriter(new FileWriter("C:/install/File.txt"));
+            out = new BufferedWriter(new FileWriter(System.getProperty("user.dir")+ "\\file.txt"));
             out.write(Daten);
             out.close();
             } 
@@ -220,7 +232,7 @@ jTextField3.setText(jFileChooser1.getSelectedFile().getPath());// TODO add your 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-     // TODO add your handling code here:
+    
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -235,37 +247,7 @@ jTextField3.setText(jFileChooser1.getSelectedFile().getPath());// TODO add your 
    
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NewJFrame().setVisible(true);
-            }
-        });
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
