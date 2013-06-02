@@ -3,11 +3,11 @@
 
 
 import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Time;
-import java.util.Date;
-
+import java.io.File;
+import java.io.FileReader;
 
 
 public class NewJFrame extends javax.swing.JFrame {
@@ -17,14 +17,39 @@ String swert,Daten;
     /**
      * Creates new form NewJFrame
      */
-    public NewJFrame() {
+    public NewJFrame() throws Exception{
         initComponents();
         
         wert = jSlider1.getValue();
         swert = String.valueOf(wert);
+       
+        File file = new File(System.getProperty("user.dir")+ "\\file.txt");
+       if (file.exists())
+       {
+           
+           FileReader fr = new FileReader(System.getProperty("user.dir")+ "\\file.txt");
+            try (BufferedReader br = new BufferedReader(fr)) {
+                String zeile1 = br.readLine();
+                jSlider1.setValue(Integer.parseInt(zeile1));
+                String zeile2 = br.readLine();
+                jTextField2.setText(zeile2);
+                String zeile3 = br.readLine();
+                jTextField3.setText(zeile3);
+                String zeile4 = br.readLine();
+                boolean Checksum = Boolean.parseBoolean(zeile4);
+                if (Checksum == true){
+                    jCheckBox1.setSelected(Checksum);
+                }
+                
+            }
+       
+       } else 
+       {
+           
+               
         jTextField1.setText(swert);
         jTextField2.setText(System.getProperty("user.name") + System.currentTimeMillis() + ".zip");
-               
+        }   
     }
 
     /**
@@ -210,7 +235,7 @@ System.exit(0);        // TODO add your handling code here:
         
         
         
-        Daten = "Compression level " + swert + "\r\n" + "Filename " + jTextField2.getText() + "\r\n" + "Directory " + jTextField3.getText() + "\r\n" + "CChecksum " + jCheckBox1.isSelected();
+        Daten = swert + "\r\n" + jTextField2.getText() + "\r\n" + jTextField3.getText() + "\r\n" + jCheckBox1.isSelected();
        //System.out.println(System.getProperty("user.dir"));
         
         try {
