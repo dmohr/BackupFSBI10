@@ -1,6 +1,5 @@
 
 
-package javaapplication11;
 
 
 import java.io.BufferedWriter;
