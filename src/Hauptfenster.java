@@ -114,9 +114,14 @@ public class Hauptfenster extends javax.swing.JFrame {
     }//GEN-LAST:event_SaveData
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        NewJFrame Optionen = new NewJFrame();
-        Optionen.setVisible(true);
-        Optionen.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); //von Dirk geklaut
+        try
+        {
+            NewJFrame Optionen = new NewJFrame();
+            Optionen.setVisible(true);
+            Optionen.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); //von Dirk geklaut
+        } catch (Exception e) {
+            
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
