@@ -48,7 +48,7 @@ String swert,Daten;
            
                
         jTextField1.setText(swert);
-        jTextField2.setText(System.getProperty("user.name") + System.currentTimeMillis() + ".zip");
+        jTextField2.setText(System.getProperty("user.name"));
         }   
     }
 
