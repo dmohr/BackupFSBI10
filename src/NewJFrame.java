@@ -23,11 +23,11 @@ String swert,Daten;
         wert = jSlider1.getValue();
         swert = String.valueOf(wert);
        
-        File file = new File(System.getProperty("user.dir")+ "\\file.txt");
+        File file = new File(System.getProperty("user.dir")+ "\\settings.txt");
        if (file.exists())
        {
            
-           FileReader fr = new FileReader(System.getProperty("user.dir")+ "\\file.txt");
+           FileReader fr = new FileReader(System.getProperty("user.dir")+ "\\settings.txt");
             try (BufferedReader br = new BufferedReader(fr)) {
                 String zeile1 = br.readLine();
                 jSlider1.setValue(Integer.parseInt(zeile1));
@@ -240,7 +240,7 @@ System.exit(0);        // TODO add your handling code here:
         
         try {
             BufferedWriter out;
-            out = new BufferedWriter(new FileWriter(System.getProperty("user.dir")+ "\\file.txt"));
+            out = new BufferedWriter(new FileWriter(System.getProperty("user.dir")+ "\\settings.txt"));
             out.write(Daten);
             out.close();
             } 
