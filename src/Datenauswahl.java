@@ -1,6 +1,7 @@
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.tree.TreePath;
 
 /*
  * To change this template, choose Tools | Templates
@@ -13,6 +14,7 @@ import javax.swing.JFrame;
  */
 public class Datenauswahl extends javax.swing.JFrame {
 
+    TreePath[] paths;
     /**
      * Creates new form Datenauswahl
      */
@@ -91,7 +93,8 @@ public class Datenauswahl extends javax.swing.JFrame {
 
     private void Ordnerauswaehlen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ordnerauswaehlen
         com.demo.tree.checkbox.FileTreeViewer ordnerwahl = new com.demo.tree.checkbox.FileTreeViewer();
-        ordnerwahl.setVisible(true);
+        ordnerwahl.setVisible(true);       
+        
     }//GEN-LAST:event_Ordnerauswaehlen
 
     private void SpeicherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpeicherButtonActionPerformed
