@@ -29,14 +29,14 @@ String swert,Daten;
            
            FileReader fr = new FileReader(System.getProperty("user.dir")+ "\\settings.txt");
             try (BufferedReader br = new BufferedReader(fr)) {
-                String zeile1 = br.readLine();
-                jSlider1.setValue(Integer.parseInt(zeile1));
-                String zeile2 = br.readLine();
-                jTextField2.setText(zeile2);
-                String zeile3 = br.readLine();
-                jTextField3.setText(zeile3);
-                String zeile4 = br.readLine();
-                boolean Checksum = Boolean.parseBoolean(zeile4);
+                String comp = br.readLine();
+                jSlider1.setValue(Integer.parseInt(comp));
+                String filen = br.readLine();
+                jTextField2.setText(filen);
+                String pathn = br.readLine();
+                jTextField3.setText(pathn);
+                String checks = br.readLine();
+                boolean Checksum = Boolean.parseBoolean(checks);
                 if (Checksum == true){
                     jCheckBox1.setSelected(Checksum);
                 }
