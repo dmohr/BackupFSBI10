@@ -1,4 +1,5 @@
 
+import com.demo.tree.checkbox.SicherungsObjekt;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.tree.TreePath;
@@ -14,12 +15,17 @@ import javax.swing.tree.TreePath;
  */
 public class Datenauswahl extends javax.swing.JFrame {
 
-    TreePath[] paths;
+    private SicherungsObjekt neueSicherungQuellen;
     /**
      * Creates new form Datenauswahl
      */
     public Datenauswahl() {
         initComponents();
+    }
+    
+    public Datenauswahl(SicherungsObjekt neueSicherung) {
+        this();
+        neueSicherungQuellen = neueSicherung;
     }
 
     /**
@@ -46,6 +52,11 @@ public class Datenauswahl extends javax.swing.JFrame {
         });
 
         SicherungButton.setText("Sicherung starten");
+        SicherungButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SicherungButtonActionPerformed(evt);
+            }
+        });
 
         SpeicherButton.setText("Speicherort auswählen");
         SpeicherButton.addActionListener(new java.awt.event.ActionListener() {
@@ -92,9 +103,8 @@ public class Datenauswahl extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Ordnerauswaehlen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ordnerauswaehlen
-        com.demo.tree.checkbox.FileTreeViewer ordnerwahl = new com.demo.tree.checkbox.FileTreeViewer();
-        ordnerwahl.setVisible(true);       
-        
+        com.demo.tree.checkbox.FileTreeViewer ordnerwahl = new com.demo.tree.checkbox.FileTreeViewer(neueSicherungQuellen);
+        ordnerwahl.setVisible(true);      
     }//GEN-LAST:event_Ordnerauswaehlen
 
     private void SpeicherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpeicherButtonActionPerformed
@@ -102,6 +112,7 @@ public class Datenauswahl extends javax.swing.JFrame {
         JFileChooser ordnerwahlspeichern = new JFileChooser();
         ordnerwahlspeichern.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         ordnerwahlspeichern.showOpenDialog(null);
+        neueSicherungQuellen.setZielpfad(ordnerwahlspeichern.getSelectedFile().getPath());
     }//GEN-LAST:event_SpeicherButtonActionPerformed
 
     private void AbbrechenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbbrechenActionPerformed
@@ -110,40 +121,16 @@ public class Datenauswahl extends javax.swing.JFrame {
         dispose(); //Destroy the JFrame object
     }//GEN-LAST:event_AbbrechenActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Datenauswahl.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Datenauswahl.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Datenauswahl.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Datenauswahl.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void SicherungButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SicherungButtonActionPerformed
+        // TODO add your handling code here:
+        if (neueSicherungQuellen != null)
+        {
+            String[] sicherungsQuellen = neueSicherungQuellen.getQuellpfade().toArray(new String[neueSicherungQuellen.getQuellpfade().size()]);
+            String sicherungsZiel = neueSicherungQuellen.getZielpfad();
         }
-        //</editor-fold>
+    }//GEN-LAST:event_SicherungButtonActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Datenauswahl().setVisible(true);
-            }
-        });
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Abbrechen;
     private javax.swing.JButton OrdnerButton;

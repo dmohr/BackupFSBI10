@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.Icon;
@@ -34,8 +35,6 @@ import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-
-
 public class FileTreeViewer  extends JDialog {
 
 private static final long serialVersionUID = 1L;
@@ -54,8 +53,17 @@ private AddCheckBoxToTree.CheckTreeManager checkTreeManager;
 
 protected TreePath m_clickedPath;
 
+private SicherungsObjekt neueSicherungQellen;
+
 public FileTreeViewer()
 {
+    
+}
+
+public FileTreeViewer(SicherungsObjekt neueSicherung)
+{
+    neueSicherungQellen = neueSicherung;
+    
     setTitle("Bitte wählen Sie die zu sichernden Ordner aus...");
     setResizable(false);
     setSize(400, 600);
@@ -85,7 +93,7 @@ class SimplePanel extends JPanel
     JButton ok;
     
     public SimplePanel() 
-    {
+    {        
         ok = new JButton("OK");
 	ok.setForeground(Color.blue);
 	ok.setFont(new Font("Arial", Font.BOLD, 12));
@@ -167,18 +175,33 @@ class SimplePanel extends JPanel
     }
 }
 
-private TreePath[] okActionPerformed(java.awt.event.ActionEvent evt) 
+private void okActionPerformed(java.awt.event.ActionEvent evt) 
 {                                
     // clear all selected path in order 
     TreePath[] paths=getCheckTreeManager().getSelectionModel().getSelectionPaths();
+    
     if(paths != null){
+        ArrayList<String> quellpfade = new ArrayList<>();
         for(TreePath tp : paths){
+            String pfad = "";
+            int x = tp.getPathCount();
+            for(int i=1; i < x; i++)
+            {
+                String pfadteilbereich = tp.getPathComponent(i).toString();
+                if (pfadteilbereich.endsWith("\\"))
+                {
+                    pfadteilbereich = pfadteilbereich.replace("\\", "");
+                }
+                pfad = pfad + pfadteilbereich + "\\";
+            }
+            quellpfade.add(pfad);
+            //d.add(pfad);
             getCheckTreeManager().getSelectionModel().removeSelectionPath(tp);
         }
+        neueSicherungQellen.setQuellpfade(quellpfade);
     }
     setVisible(false); //you can't see me!
     dispose(); //Destroy the JFrame object
-    return paths;
 }  
 
 private void abbrechenActionPerformed(java.awt.event.ActionEvent evt) 

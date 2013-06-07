@@ -1,5 +1,6 @@
 
 
+import com.demo.tree.checkbox.SicherungsObjekt;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -108,7 +109,8 @@ public class Hauptfenster extends javax.swing.JFrame {
     }//GEN-LAST:event_CloseProgram
 
     private void SaveData(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveData
-        Datenauswahl Datenauswahlfenster = new Datenauswahl();
+        SicherungsObjekt neueSicherung = new SicherungsObjekt();
+        Datenauswahl Datenauswahlfenster = new Datenauswahl(neueSicherung);
         Datenauswahlfenster.setVisible(true);
         Datenauswahlfenster.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); //von Dirk geklaut
     }//GEN-LAST:event_SaveData
