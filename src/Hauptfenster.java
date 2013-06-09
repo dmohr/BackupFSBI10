@@ -1,8 +1,13 @@
 
 
 import com.demo.tree.checkbox.SicherungsObjekt;
+import java.io.FileFilter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
  * To change this template, choose Tools | Templates
@@ -132,7 +137,31 @@ public class Hauptfenster extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        String strZipFile;
+        JFileChooser zipwahl = new JFileChooser();
+        zipwahl.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        zipwahl.setDialogTitle("Dateiauswahl");
+        
+        FileNameExtensionFilter zipFilter = new FileNameExtensionFilter("Zip file", "zip");
+        zipwahl.setFileFilter(zipFilter);
+        
+        
+        zipwahl.showOpenDialog(null);
+/*        try {
+            zipwahl.wait();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        strZipFile = zipwahl.getSelectedFile().getPath();
+        
+        if (!strZipFile.isEmpty())
+        {
+            Zurueckpielen entzip = new Zurueckpielen();
+            entzip.setZipfile(strZipFile);
+            entzip.ZeigeZipInhalt();
+            entzip.setVisible(true);
+            entzip.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); //von Dirk geklaut
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

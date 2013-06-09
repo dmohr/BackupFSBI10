@@ -10,12 +10,10 @@
 import com.demo.tree.checkbox.SicherungsObjekt;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -132,9 +130,9 @@ public class Zippen {
 
     }
 
-    public void extractArchive(/*File archive, File destDir*/List<String> strFileList) throws Exception {
-        File archive = new File("D:\\zweitezip.zip");
-        File destDir = new File("D:\\ProjektObj\\Dest");
+    public void extractArchive(String strArchive, List<String> strFileList, String strDestDir) throws Exception {
+        File archive = new File(strArchive);
+        File destDir = new File(strDestDir);
         
         // System.currentTimeMillis() + ".zip"
         
@@ -186,8 +184,8 @@ public class Zippen {
         zipFile.close();
     }
 
-    public String[] leseZipinhalt(/*File archive, File destDir*/) throws Exception {
-        File archive = new File("D:\\zweitezip.zip");
+    public String[] leseZipinhalt(String strArchiv) throws Exception {
+        File archive = new File(strArchiv);
         
        ArrayList<String> listStr = new ArrayList<String>();
  
