@@ -7,12 +7,15 @@
  *
  * @author FSBI10
  */
+import com.demo.tree.checkbox.SicherungsObjekt;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,58 +35,33 @@ public class Zippen {
     protected File fLog;
     protected FileWriter writerLog;
     protected String strLog;
+        
     
     
-    
-    public void macheZip() {
+    public void macheZip(SicherungsObjekt neueSicherungQuellen) {
         nFiles = 0;
         nDirectories = 0;
         strLog = "";
-        
-        String dirToZip = "D:\\ProjektObj\\Source"; //\\20121018\\basic.pdf";
-        String zipName = "d:\\zweitezip";
 
+        String[] sicherungsQuellen = neueSicherungQuellen.getQuellpfade().toArray(new String[neueSicherungQuellen.getQuellpfade().size()]);
+        
+        String zipName = neueSicherungQuellen.getZielpfad() + "\\" + System.currentTimeMillis() + ".zip"; //"d:\\zweitezip";
         
         try {
-            //fLog = new File(zipName + ".txt");
-            //writerLog = new FileWriter(fLog, false);
-            //writerLog.write(zipName + ".zip");
-            strLog += zipName + ".zip";
-            
-            // Platformunabhängiger Zeilenumbruch wird in den Stream geschrieben
-            //writerLog.write(System.getProperty("line.separator"));
-            strLog += System.getProperty("line.separator");
-            
-            File f = new File(zipName + ".zip");
+            File f = new File(zipName);
             System.out.println("Erzeuge Archiv " + f.getCanonicalPath());
             ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(
                     f.getCanonicalPath()));
-            
-            File dirToZipFile = new File(dirToZip);            
-            
-            zipDir(zipName, dirToZip, dirToZipFile, zos);
+            zos.setLevel(neueSicherungQuellen.getKompression());
 
-            // Platformunabhängiger Zeilenumbruch wird in den Stream geschrieben
-            //writerLog.write(System.getProperty("line.separator"));
-            // Platformunabhängiger Zeilenumbruch wird in den Stream geschrieben
-            //writerLog.write(System.getProperty("line.separator"));
-            strLog += System.getProperty("line.separator");
-            strLog += System.getProperty("line.separator");
-            
-            // Zahlen in Log schreiben
-            //writerLog.write("Gesichert " + nFiles + "Dateien  " + nDirectories + "Unterordner");
-            strLog += "Gesichert " + nFiles + "Dateien  " + nDirectories + "Unterordner";
-            fLog = new File("Log" + ".log");
-            // fLog = File.createTempFile("Log", ".txt");
-            fLog.deleteOnExit();
-            writerLog = new FileWriter(fLog, false);
-            writerLog.write(strLog);
-            
-            writerLog.flush();
-            writerLog.close();
-            
-            zipFile(zos, fLog, fLog.getName());
-            
+            for( String strQuelle: sicherungsQuellen )
+            {
+                File dirToZipFile = new File(strQuelle);            
+
+                zipDir(zipName, strQuelle, dirToZipFile, zos);
+
+            }
+
             zos.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -110,7 +88,10 @@ public class Zippen {
                 fis = new FileInputStream(f);
                 path = f.getCanonicalPath();
                 // path = f.getPath();
-                String name = path.substring(dirToZip.length()+1, path.length());
+                
+                // String name = path.substring(dirToZip.length(), path.length());
+               
+                String name = path.substring(path.indexOf(f.separator)+1 , path.length());
                 System.out.println("Packe " + name);
                 
                 // Eintrag in Logg
@@ -154,6 +135,8 @@ public class Zippen {
     public void extractArchive(/*File archive, File destDir*/List<String> strFileList) throws Exception {
         File archive = new File("D:\\zweitezip.zip");
         File destDir = new File("D:\\ProjektObj\\Dest");
+        
+        // System.currentTimeMillis() + ".zip"
         
         if (!destDir.exists()) {
             destDir.mkdir();

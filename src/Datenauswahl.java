@@ -1,8 +1,8 @@
 
 import com.demo.tree.checkbox.SicherungsObjekt;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.tree.TreePath;
 
 /*
  * To change this template, choose Tools | Templates
@@ -125,8 +125,13 @@ public class Datenauswahl extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (neueSicherungQuellen != null)
         {
-            String[] sicherungsQuellen = neueSicherungQuellen.getQuellpfade().toArray(new String[neueSicherungQuellen.getQuellpfade().size()]);
-            String sicherungsZiel = neueSicherungQuellen.getZielpfad();
+            try {                
+                Zippen zip = new Zippen();
+                zip.macheZip(neueSicherungQuellen);
+            } catch (Exception ex) {
+                Logger.getLogger(Datenauswahl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
     }//GEN-LAST:event_SicherungButtonActionPerformed
 
