@@ -16,6 +16,7 @@ public class SicherungsObjekt {
     
     private ArrayList<String> quellpfade;
     private String zielpfad;
+    private String zieldatei;
     private int kompression;
     private boolean checksumme;
     
@@ -23,6 +24,7 @@ public class SicherungsObjekt {
     {
         quellpfade = new ArrayList<>();
         zielpfad = "";
+        zieldatei = "";
         kompression = 0;
         checksumme = false;
     }
@@ -33,6 +35,10 @@ public class SicherungsObjekt {
 
     public String getZielpfad() {
         return zielpfad;
+    }
+    
+    public String getZieldatei() {
+        return zieldatei;
     }
 
     public int getKompression() {
@@ -49,6 +55,10 @@ public class SicherungsObjekt {
 
     public void setZielpfad(String zielpfad) {
         this.zielpfad = zielpfad;
+    }
+    
+    public void setZieldatei(String zieldatei) {
+        this.zieldatei = zieldatei;
     }
 
     public void setKompression(int kompression) {

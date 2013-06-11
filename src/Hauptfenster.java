@@ -1,7 +1,12 @@
 
 
 import com.demo.tree.checkbox.SicherungsObjekt;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileFilter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -42,11 +47,18 @@ public class Hauptfenster extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("MakeYourOwnSicherung 0.74b");
+        setLocationByPlatform(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jButton2.setText("Daten sichern");
+        jButton2.setToolTipText("Durchführen einer neuen Datensicherung...");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveData(evt);
@@ -54,13 +66,15 @@ public class Hauptfenster extends javax.swing.JFrame {
         });
 
         jButton3.setText("Sicherung zurückspielen");
+        jButton3.setToolTipText("Wiederherstellen von gesicherten Daten...");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Abbrechen");
+        jButton4.setText("Beenden");
+        jButton4.setToolTipText("Programm beenden...");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CloseProgram(evt);
@@ -78,9 +92,6 @@ public class Hauptfenster extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -120,6 +131,40 @@ public class Hauptfenster extends javax.swing.JFrame {
 
     private void SaveData(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveData
         SicherungsObjekt neueSicherung = new SicherungsObjekt();
+        
+        File file = new File(System.getProperty("user.dir")+ "\\settings.txt");
+        if (file.exists())
+        {
+           
+           FileReader fr;
+            try {
+                fr = new FileReader(System.getProperty("user.dir")+ "\\settings.txt");
+                BufferedReader br = new BufferedReader(fr);
+                try {
+                    neueSicherung.setKompression(Integer.parseInt(br.readLine()));
+                } catch (IOException ex) {
+                    Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    neueSicherung.setZieldatei(br.readLine());
+                } catch (IOException ex) {
+                    Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    neueSicherung.setZielpfad(br.readLine());
+                } catch (IOException ex) {
+                    Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    neueSicherung.setChecksumme(Boolean.parseBoolean(br.readLine()));   
+                } catch (IOException ex) {
+                    Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
+                }           
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
+            }       
+       }
+        
         Datenauswahl Datenauswahlfenster = new Datenauswahl(neueSicherung);
         Datenauswahlfenster.setVisible(true);
         Datenauswahlfenster.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); //von Dirk geklaut
@@ -164,6 +209,12 @@ public class Hauptfenster extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        // JFrame zentriert zur Bildschirmmitte, also JFrame in der Mitte des Bildschirms positionieren:
+        setLocationRelativeTo(null);
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -203,7 +254,6 @@ public class Hauptfenster extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables

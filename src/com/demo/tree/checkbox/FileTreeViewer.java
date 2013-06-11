@@ -62,6 +62,8 @@ public FileTreeViewer()
 
 public FileTreeViewer(SicherungsObjekt neueSicherung)
 {
+    initComponents();
+    
     neueSicherungQellen = neueSicherung;
     
     setTitle("Bitte wählen Sie die zu sichernden Ordner aus...");
@@ -85,6 +87,20 @@ public FileTreeViewer(SicherungsObjekt neueSicherung)
     addWindowListener(wndCloser);
 
     setVisible(true);
+}
+
+private void initComponents() {
+    addWindowListener(new java.awt.event.WindowAdapter() {
+        public void windowOpened(java.awt.event.WindowEvent evt) {
+            formWindowOpened(evt);
+        }
+    });
+}
+
+private void formWindowOpened(java.awt.event.WindowEvent evt) {
+    // TODO add your handling code here:
+    // JFrame zentriert zum Parent positionieren:
+    setLocationRelativeTo(getParent());
 }
 
 class SimplePanel extends JPanel 
