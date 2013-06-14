@@ -23,7 +23,7 @@ String swert,Daten;
         wert = jSlider1.getValue();
         swert = String.valueOf(wert);
        
-        File file = new File(System.getProperty("user.dir")+ "\\settings.txt");
+       File file = new File(System.getProperty("user.dir")+ "\\settings.txt");
        if (file.exists())
        {
            

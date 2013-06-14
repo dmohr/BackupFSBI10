@@ -24,11 +24,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author FSBI10
  */
 public class Hauptfenster extends javax.swing.JFrame {
+    private SicherungsObjekt neueSicherung;
+
 
     /**
      * Creates new form Hauptfenster
      */
-    public Hauptfenster() {
+    public Hauptfenster() throws FileNotFoundException, IOException {
+        neueSicherung = new SicherungsObjekt();
         initComponents(); // Komponenten initialisieren
     }
 
@@ -130,7 +133,6 @@ public class Hauptfenster extends javax.swing.JFrame {
     }//GEN-LAST:event_CloseProgram
 
     private void SaveData(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveData
-        SicherungsObjekt neueSicherung = new SicherungsObjekt();
         
         File file = new File(System.getProperty("user.dir")+ "\\settings.txt");
         if (file.exists())
@@ -189,6 +191,8 @@ public class Hauptfenster extends javax.swing.JFrame {
         
         FileNameExtensionFilter zipFilter = new FileNameExtensionFilter("Zip file", "zip");
         zipwahl.setFileFilter(zipFilter);
+        neueSicherung.getZielpfad();
+        zipwahl.setCurrentDirectory(new File(neueSicherung.getZielpfad()));
         
         
         zipwahl.showOpenDialog(null);
@@ -245,7 +249,13 @@ public class Hauptfenster extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Hauptfenster().setVisible(true);
+                try {
+                    new Hauptfenster().setVisible(true);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -1,7 +1,14 @@
 package com.demo.tree.checkbox;
 
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this template, choose Tools | Templates
@@ -20,13 +27,15 @@ public class SicherungsObjekt {
     private int kompression;
     private boolean checksumme;
     
-    public SicherungsObjekt()
+    public SicherungsObjekt() throws FileNotFoundException, IOException
     {
         quellpfade = new ArrayList<>();
         zielpfad = "";
         zieldatei = "";
         kompression = 0;
         checksumme = false;
+        
+        LeseVoreinstellungen();
     }
     
     public ArrayList<String> getQuellpfade() {
@@ -67,5 +76,24 @@ public class SicherungsObjekt {
 
     public void setChecksumme(boolean checksumme) {
         this.checksumme = checksumme;
+    }
+    
+    protected void LeseVoreinstellungen() throws FileNotFoundException, IOException
+    {
+        File file = new File(System.getProperty("user.dir")+ "\\settings.txt");
+        
+        if (file.exists())
+        {
+           
+           FileReader fr;
+            fr = new FileReader(System.getProperty("user.dir")+ "\\settings.txt");
+            BufferedReader br = new BufferedReader(fr);
+
+            setKompression(Integer.parseInt(br.readLine()));
+            setZieldatei(br.readLine());
+            setZielpfad(br.readLine());
+            setChecksumme(Boolean.parseBoolean(br.readLine()));
+        }
+
     }
 }
