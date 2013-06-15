@@ -101,7 +101,7 @@
     <Component class="javax.swing.JButton" name="OrdnerButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ordner ausw&#xe4;hlen"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="toolTipText" type="java.lang.String" value="Ordner ausw&#xe4;hlen, die gesichert werden sollen..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Ordnerauswaehlen"/>
@@ -110,6 +110,7 @@
     <Component class="javax.swing.JButton" name="SicherungButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Sicherung starten"/>
+        <Property name="toolTipText" type="java.lang.String" value="Sicherung der ausgew&#xe4;hlten Ordner an den ausgew&#xe4;hlten Speicherort starten..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SicherungButtonActionPerformed"/>
@@ -118,6 +119,7 @@
     <Component class="javax.swing.JButton" name="SpeicherButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Speicherort ausw&#xe4;hlen"/>
+        <Property name="toolTipText" type="java.lang.String" value="Speicherort der Sicherung ausw&#xe4;hlen..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SpeicherButtonActionPerformed"/>
@@ -126,6 +128,7 @@
     <Component class="javax.swing.JButton" name="Abbrechen">
       <Properties>
         <Property name="text" type="java.lang.String" value="Abbrechen"/>
+        <Property name="toolTipText" type="java.lang.String" value="Sicherung abbrechen..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AbbrechenActionPerformed"/>

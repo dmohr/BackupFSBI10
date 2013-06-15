@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /*
  * To change this template, choose Tools | Templates
@@ -61,7 +62,7 @@ public class Datenauswahl extends javax.swing.JFrame {
         });
 
         OrdnerButton.setText("Ordner auswählen");
-        OrdnerButton.setToolTipText("");
+        OrdnerButton.setToolTipText("Ordner auswählen, die gesichert werden sollen...");
         OrdnerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Ordnerauswaehlen(evt);
@@ -69,6 +70,7 @@ public class Datenauswahl extends javax.swing.JFrame {
         });
 
         SicherungButton.setText("Sicherung starten");
+        SicherungButton.setToolTipText("Sicherung der ausgewählten Ordner an den ausgewählten Speicherort starten...");
         SicherungButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SicherungButtonActionPerformed(evt);
@@ -76,6 +78,7 @@ public class Datenauswahl extends javax.swing.JFrame {
         });
 
         SpeicherButton.setText("Speicherort auswählen");
+        SpeicherButton.setToolTipText("Speicherort der Sicherung auswählen...");
         SpeicherButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SpeicherButtonActionPerformed(evt);
@@ -83,6 +86,7 @@ public class Datenauswahl extends javax.swing.JFrame {
         });
 
         Abbrechen.setText("Abbrechen");
+        Abbrechen.setToolTipText("Sicherung abbrechen...");
         Abbrechen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AbbrechenActionPerformed(evt);
@@ -186,7 +190,7 @@ public class Datenauswahl extends javax.swing.JFrame {
 
     private void SicherungButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SicherungButtonActionPerformed
         // TODO add your handling code here:
-        if (neueSicherungQuellen != null)
+        if (neueSicherungQuellen.getQuellpfade().size() > 0 && !"".equals(neueSicherungQuellen.getZielpfad().trim()))
         {
             try {                
                 Zippen zip = new Zippen();
@@ -195,6 +199,21 @@ public class Datenauswahl extends javax.swing.JFrame {
                 Logger.getLogger(Datenauswahl.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+        }
+        else
+        {
+            if (neueSicherungQuellen.getQuellpfade().size() <= 0 && "".equals(neueSicherungQuellen.getZielpfad().trim()))
+            {
+                JOptionPane.showMessageDialog(null, "Bitte wählen Sie die Ordner aus, welche Sie sichern möchten, und den Speicherort, wohin Sie sichern möchten.", "Hinweis", JOptionPane.INFORMATION_MESSAGE); 
+            }
+            else if (neueSicherungQuellen.getQuellpfade().size() <= 0)
+            {
+                JOptionPane.showMessageDialog(null, "Bitte wählen Sie die Ordner aus, welche Sie sichern möchten.", "Hinweis", JOptionPane.INFORMATION_MESSAGE); 
+            }
+            else if ("".equals(neueSicherungQuellen.getZielpfad().trim()))
+            {
+                JOptionPane.showMessageDialog(null, "Bitte wählen Sie den Speicherort aus, wohin Sie sichern möchten.", "Hinweis", JOptionPane.INFORMATION_MESSAGE); 
+            }
         }
     }//GEN-LAST:event_SicherungButtonActionPerformed
 
