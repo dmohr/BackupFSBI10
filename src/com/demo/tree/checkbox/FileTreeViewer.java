@@ -40,9 +40,9 @@ public class FileTreeViewer  extends JDialog {
 
 private static final long serialVersionUID = 1L;
 public static final ImageIcon ICON_COMPUTER =  new ImageIcon("");
-public static final ImageIcon ICON_DISK =  new ImageIcon("defaults1.png");
-public static final ImageIcon ICON_FOLDER =   new ImageIcon("fol_orig.png");
-public static final ImageIcon ICON_EXPANDEDFOLDER =  new ImageIcon("folder_open.png");
+public static final ImageIcon ICON_DISK =  new ImageIcon("");//("defaults1.png");
+public static final ImageIcon ICON_FOLDER =   new ImageIcon("");//("fol_orig.png");
+public static final ImageIcon ICON_EXPANDEDFOLDER =  new ImageIcon("");//("folder_open.png");
 
 protected JTree  m_tree;
 protected DefaultTreeModel m_model;
@@ -102,6 +102,39 @@ private void formWindowOpened(java.awt.event.WindowEvent evt) {
     // TODO add your handling code here:
     // JFrame zentriert zum Parent positionieren:
     setLocationRelativeTo(getParent());
+    /*
+    if (neueSicherungQellen.getQuellpfade().size() > 0)
+    {
+        for (String item : neueSicherungQellen.getQuellpfade())
+        {
+            TreePath tp = new TreePath(item);
+            getCheckTreeManager().getSelectionModel().addSelectionPath(tp);
+        }
+        //getCheckTreeManager().setSelectionModel(neueSicherungQellen.getQuellpfade().get(i));
+        
+    }/*
+    TreePath[] paths=getCheckTreeManager().getSelectionModel().getSelectionPaths();
+    
+    if(paths != null){
+        ArrayList<String> quellpfade = new ArrayList<>();
+        for(TreePath tp : paths){
+            String pfad = "";
+            int x = tp.getPathCount();
+            for(int i=1; i < x; i++)
+            {
+                String pfadteilbereich = tp.getPathComponent(i).toString();
+                if (pfadteilbereich.endsWith("\\"))
+                {
+                    pfadteilbereich = pfadteilbereich.replace("\\", "");
+                }
+                pfad = pfad + pfadteilbereich + "\\";
+            }
+            quellpfade.add(pfad);
+            //d.add(pfad);
+            getCheckTreeManager().getSelectionModel().removeSelectionPath(tp);
+        }
+        neueSicherungQellen.setQuellpfade(quellpfade);
+    }*/
 }
 
 class SimplePanel extends JPanel 
