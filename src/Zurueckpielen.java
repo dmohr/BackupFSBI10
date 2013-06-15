@@ -42,6 +42,7 @@ public class Zurueckpielen extends javax.swing.JFrame {
         listFiles = new javax.swing.JList();
         btnAllesAnwaehlen = new javax.swing.JButton();
         btnAllesAbwaehlen = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,33 +75,43 @@ public class Zurueckpielen extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Abbrechen");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(btnZurueckpielen)
                 .addGap(27, 27, 27)
                 .addComponent(btnAllesAnwaehlen)
-                .addGap(49, 49, 49)
+                .addGap(18, 18, 18)
                 .addComponent(btnAllesAbwaehlen)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnZurueckpielen)
                     .addComponent(btnAllesAnwaehlen)
-                    .addComponent(btnAllesAbwaehlen))
+                    .addComponent(btnAllesAbwaehlen)
+                    .addComponent(jButton1))
                 .addGap(17, 17, 17))
         );
 
@@ -148,6 +159,10 @@ public class Zurueckpielen extends javax.swing.JFrame {
         listFiles.clearSelection();
     }//GEN-LAST:event_btnAllesAbwaehlenActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public void ZeigeZipInhalt()
     {
         Zippen zip = new Zippen();
@@ -177,6 +192,7 @@ public class Zurueckpielen extends javax.swing.JFrame {
     private javax.swing.JButton btnAllesAbwaehlen;
     private javax.swing.JButton btnAllesAnwaehlen;
     private javax.swing.JButton btnZurueckpielen;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList listFiles;
     // End of variables declaration//GEN-END:variables
