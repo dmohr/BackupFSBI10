@@ -49,8 +49,13 @@ public class Zippen {
         String zipName = neueSicherungQuellen.getZielpfad() + "\\" + neueSicherungQuellen.getZieldatei() + System.currentTimeMillis() + ".zip";
         
         try {
+            strLog += "Zip-Datei:";
+            strLog += System.getProperty("line.separator");
             strLog += zipName;
             // Platformunabhängiger Zeilenumbruch wird in den Stream geschrieben
+            strLog += System.getProperty("line.separator");
+            strLog += System.getProperty("line.separator");
+            strLog += "Inhalt:";
             strLog += System.getProperty("line.separator");
             
             // Anzahl Files bestimmen
@@ -80,10 +85,8 @@ public class Zippen {
             strLog += System.getProperty("line.separator");
             
             // Zahlen in Log schreiben
-            //writerLog.write("Gesichert " + nFiles + "Dateien  " + nDirectories + "Unterordner");
             strLog += "Gesichert " + nFiles + "Dateien  " + nDirectories + "Unterordner";
             fLog = new File(zipName + ".log");
-            // fLog = File.createTempFile("Log", ".txt");
            
             writerLog = new FileWriter(fLog, false);
             writerLog.write(strLog);

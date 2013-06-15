@@ -24,7 +24,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="MakeYourOwnSicherung 0.74b"/>
+    <Property name="title" type="java.lang.String" value="Backupversion 1.0"/>
     <Property name="locationByPlatform" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>
