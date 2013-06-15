@@ -161,21 +161,20 @@ public class Hauptfenster extends javax.swing.JFrame {
         zipwahl.setCurrentDirectory(new File(neueSicherung.getZielpfad()));
         
         
-        zipwahl.showOpenDialog(null);
-/*        try {
-            zipwahl.wait();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        strZipFile = zipwahl.getSelectedFile().getPath();
+        int nRet = zipwahl.showOpenDialog(null);
         
-        if (!strZipFile.isEmpty())
+        if (nRet == JFileChooser.APPROVE_OPTION)
         {
-            Zurueckpielen entzip = new Zurueckpielen();
-            entzip.setZipfile(strZipFile);
-            entzip.ZeigeZipInhalt();
-            entzip.setVisible(true);
-            entzip.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); //von Dirk geklaut
+            strZipFile = zipwahl.getSelectedFile().getPath();
+
+            if (!strZipFile.isEmpty())
+            {
+                Zurueckpielen entzip = new Zurueckpielen();
+                entzip.setZipfile(strZipFile);
+                entzip.ZeigeZipInhalt();
+                entzip.setVisible(true);
+                entzip.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); //von Dirk geklaut
+            }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
