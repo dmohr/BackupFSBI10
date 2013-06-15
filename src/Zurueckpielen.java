@@ -45,8 +45,14 @@ public class Zurueckpielen extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        btnZurueckpielen.setText("entpacken");
+        btnZurueckpielen.setText("Entpacken");
         btnZurueckpielen.setEnabled(false);
         btnZurueckpielen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,6 +168,12 @@ public class Zurueckpielen extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        // JFrame zentriert zum Parent positionieren:
+        setLocationRelativeTo(getParent());
+    }//GEN-LAST:event_formWindowOpened
 
     public void ZeigeZipInhalt()
     {
