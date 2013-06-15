@@ -225,7 +225,7 @@ String swert,Daten;
     }//GEN-LAST:event_jTextField1PropertyChange
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-System.exit(0);        // TODO add your handling code here:
+dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -244,7 +244,7 @@ System.exit(0);        // TODO add your handling code here:
         
             catch (IOException e) {
             }
-      System.exit(0);
+      dispose();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
