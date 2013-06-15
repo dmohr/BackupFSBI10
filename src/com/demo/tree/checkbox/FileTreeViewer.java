@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dialog;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -449,8 +450,9 @@ public boolean expand(DefaultMutableTreeNode parent){
 
     for (int k=0; k<files.length; k++){
         File f = files[k];
-        if (!(f.isDirectory()))
+        if (!(f.isDirectory())) {
             continue;
+        }
 
         FileNode newNode = new FileNode(f);
 

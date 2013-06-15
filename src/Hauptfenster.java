@@ -133,40 +133,6 @@ public class Hauptfenster extends javax.swing.JFrame {
     }//GEN-LAST:event_CloseProgram
 
     private void SaveData(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveData
-        
-        File file = new File(System.getProperty("user.dir")+ "\\settings.txt");
-        if (file.exists())
-        {
-           
-           FileReader fr;
-            try {
-                fr = new FileReader(System.getProperty("user.dir")+ "\\settings.txt");
-                BufferedReader br = new BufferedReader(fr);
-                try {
-                    neueSicherung.setKompression(Integer.parseInt(br.readLine()));
-                } catch (IOException ex) {
-                    Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    neueSicherung.setZieldatei(br.readLine());
-                } catch (IOException ex) {
-                    Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    neueSicherung.setZielpfad(br.readLine());
-                } catch (IOException ex) {
-                    Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    neueSicherung.setChecksumme(Boolean.parseBoolean(br.readLine()));   
-                } catch (IOException ex) {
-                    Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
-                }           
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Hauptfenster.class.getName()).log(Level.SEVERE, null, ex);
-            }       
-       }
-        
         Datenauswahl Datenauswahlfenster = new Datenauswahl(neueSicherung);
         Datenauswahlfenster.setVisible(true);
         Datenauswahlfenster.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); //von Dirk geklaut

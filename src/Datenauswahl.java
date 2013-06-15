@@ -1,5 +1,8 @@
 
 import com.demo.tree.checkbox.SicherungsObjekt;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -56,6 +59,7 @@ public class Datenauswahl extends javax.swing.JFrame {
         });
 
         OrdnerButton.setText("Ordner auswählen");
+        OrdnerButton.setToolTipText("");
         OrdnerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Ordnerauswaehlen(evt);
@@ -89,13 +93,16 @@ public class Datenauswahl extends javax.swing.JFrame {
 
         jLabel3.setText("Schritt 3");
 
+        tbZiel.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tbZiel)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
@@ -110,9 +117,8 @@ public class Datenauswahl extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Abbrechen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(SicherungButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tbZiel))))
-                .addGap(147, 147, 147))
+                            .addComponent(SicherungButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,9 +154,14 @@ public class Datenauswahl extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFileChooser ordnerwahlspeichern = new JFileChooser();
         ordnerwahlspeichern.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        ordnerwahlspeichern.showOpenDialog(null);
-        neueSicherungQuellen.setZielpfad(ordnerwahlspeichern.getSelectedFile().getPath());
-        tbZiel.setText(neueSicherungQuellen.getZielpfad());
+        if (neueSicherungQuellen.getZielpfad() != null && !"".equals(neueSicherungQuellen.getZielpfad().trim()))
+        {
+            ordnerwahlspeichern.setCurrentDirectory(new File(neueSicherungQuellen.getZielpfad()));
+        }
+        if (ordnerwahlspeichern.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            neueSicherungQuellen.setZielpfad(ordnerwahlspeichern.getSelectedFile().getPath());
+            tbZiel.setText(neueSicherungQuellen.getZielpfad());
+        }
     }//GEN-LAST:event_SpeicherButtonActionPerformed
 
     private void AbbrechenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AbbrechenActionPerformed
@@ -182,6 +193,7 @@ public class Datenauswahl extends javax.swing.JFrame {
         {
             tbZiel.setText(neueSicherungQuellen.getZielpfad());
         }
+        tbZiel.setToolTipText(tbZiel.getText());
     }//GEN-LAST:event_formWindowOpened
 
     
