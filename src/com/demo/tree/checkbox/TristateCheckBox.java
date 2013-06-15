@@ -18,6 +18,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.ActionMapUIResource;
 
+// Notwendig für FileTreeViewer Klasse - unverändert übernommen von Vorlage
+// Visualisiert den Selektionsgrad von Elementen im FileTreeViewer (nicht ausgewählt, ausgewählt, nur Unterknoten ausgewählt)
+// Peter Riehm
 
 public class TristateCheckBox extends JCheckBox {
 static final  long serialVersionUID =0;

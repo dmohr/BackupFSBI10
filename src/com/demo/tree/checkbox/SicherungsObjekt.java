@@ -21,11 +21,11 @@ import java.util.logging.Logger;
  */
 public class SicherungsObjekt {
     
-    private ArrayList<String> quellpfade;
-    private String zielpfad;
-    private String zieldatei;
-    private int kompression;
-    private boolean checksumme;
+    private ArrayList<String> quellpfade;   // Array der zu sichernden Ordner
+    private String zielpfad;                // Zielpfad, wo hingesichert werden soll
+    private String zieldatei;               // Präfix der Sicherungsdatei
+    private int kompression;                // Kompressionsstärke der Sicherungsdatei
+    private boolean checksumme;             // Checksumme für spätere Verwendung
     
     public SicherungsObjekt() throws FileNotFoundException, IOException
     {
@@ -34,10 +34,10 @@ public class SicherungsObjekt {
         zieldatei = "";
         kompression = 0;
         checksumme = false;
-        
+        // Voreinstellungen aus der Settings-Datei lesen
         LeseVoreinstellungen();
     }
-    
+    // Getter und Setter
     public ArrayList<String> getQuellpfade() {
         return quellpfade;
     }
@@ -77,7 +77,7 @@ public class SicherungsObjekt {
     public void setChecksumme(boolean checksumme) {
         this.checksumme = checksumme;
     }
-    
+    // Voreinstellungen aus der Settingsdatei lesen (von Dirk Mohr)
     protected void LeseVoreinstellungen() throws FileNotFoundException, IOException
     {
         File file = new File(System.getProperty("user.dir")+ "\\settings.txt");

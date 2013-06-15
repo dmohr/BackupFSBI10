@@ -1,11 +1,8 @@
 package com.demo.tree.checkbox;
 
-
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dialog;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -36,13 +33,15 @@ import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+// Gefunden und angepasst von Peter Riehm
+
 public class FileTreeViewer  extends JDialog {
 
 private static final long serialVersionUID = 1L;
 public static final ImageIcon ICON_COMPUTER =  new ImageIcon("");
-public static final ImageIcon ICON_DISK =  new ImageIcon("");//("defaults1.png");
-public static final ImageIcon ICON_FOLDER =   new ImageIcon("");//("fol_orig.png");
-public static final ImageIcon ICON_EXPANDEDFOLDER =  new ImageIcon("");//("folder_open.png");
+public static final ImageIcon ICON_DISK =  new ImageIcon("");
+public static final ImageIcon ICON_FOLDER =   new ImageIcon("");
+public static final ImageIcon ICON_EXPANDEDFOLDER =  new ImageIcon("");
 
 protected JTree  m_tree;
 protected DefaultTreeModel m_model;
@@ -60,6 +59,8 @@ public FileTreeViewer()
 {
     
 }
+
+// Konstruktor überladen, um eigene Buttons hinzufügen zu können
 
 public FileTreeViewer(SicherungsObjekt neueSicherung)
 {
@@ -91,6 +92,8 @@ public FileTreeViewer(SicherungsObjekt neueSicherung)
     setVisible(true);
 }
 
+// Eventhandler fürs Fenster hinzugefügt
+
 private void initComponents() {
     addWindowListener(new java.awt.event.WindowAdapter() {
         public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -99,11 +102,15 @@ private void initComponents() {
     });
 }
 
+// Eventhandler beim Öffnen des Fensters, um dieses zu zentrieren
+
 private void formWindowOpened(java.awt.event.WindowEvent evt) {
     // TODO add your handling code here:
     // JFrame zentriert zum Parent positionieren:
     setLocationRelativeTo(getParent());
 }
+
+// Panel hinzugefügt, welches zusätzlich zum FileTree auch die Buttons aufnimmt
 
 class SimplePanel extends JPanel 
 {
@@ -112,30 +119,31 @@ class SimplePanel extends JPanel
     
     public SimplePanel() 
     {        
+        // OK - Button zum erfolgreichen Übernehmen der Selektion
         ok = new JButton("OK");
 	ok.setForeground(Color.blue);
 	ok.setFont(new Font("Arial", Font.BOLD, 12));
 	ok.setBounds(194, 540, 100, 30);
 	add(ok);
-        
+        // Event-Handler des OK Buttons
         ok.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okActionPerformed(evt);
             }
         });
-        
+        // Abbrechen Butten, zum Schließen des Fensters
         abbrechen = new JButton("Abbrechen");
 	abbrechen.setForeground(Color.blue);
 	abbrechen.setFont(new Font("Arial", Font.BOLD, 12));
 	abbrechen.setBounds(294, 540, 100, 30);
 	add(abbrechen);
-        
+        // Event-Handler des Abbrechen Buttons
         abbrechen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 abbrechenActionPerformed(evt);
             }
         });
-                
+        // Der Ordnerbaum...
         DefaultMutableTreeNode top = new DefaultMutableTreeNode(
             new IconData(ICON_COMPUTER, null, "Computer"));
     
@@ -193,6 +201,8 @@ class SimplePanel extends JPanel
     }
 }
 
+// Beim Klick auf den OK Button, die ausgewählten Ordner in das SicherungsObjekt wegschreiben
+
 private void okActionPerformed(java.awt.event.ActionEvent evt) 
 {                                
     // clear all selected path in order 
@@ -203,6 +213,7 @@ private void okActionPerformed(java.awt.event.ActionEvent evt)
         for(TreePath tp : paths){
             String pfad = "";
             int x = tp.getPathCount();
+            // Zerlegen eines Ordnerstrukturobjekts in die einzelnen Elemente und diese als String zusammenfügen
             for(int i=1; i < x; i++)
             {
                 String pfadteilbereich = tp.getPathComponent(i).toString();
@@ -212,16 +223,18 @@ private void okActionPerformed(java.awt.event.ActionEvent evt)
                 }
                 pfad = pfad + pfadteilbereich + "\\";
             }
+            // Pfad zum Array hinzufügen
             quellpfade.add(pfad);
-            //d.add(pfad);
             getCheckTreeManager().getSelectionModel().removeSelectionPath(tp);
         }
+        // Das Array der einzelnen Pfade in das SicherungsObjekt wegschreiben
         neueSicherungQellen.setQuellpfade(quellpfade);
     }
     setVisible(false); //you can't see me!
     dispose(); //Destroy the JFrame object
 }  
 
+// Fenster schließen beim Abbrechen
 private void abbrechenActionPerformed(java.awt.event.ActionEvent evt) 
 {                                         
     setVisible(false); //you can't see me!

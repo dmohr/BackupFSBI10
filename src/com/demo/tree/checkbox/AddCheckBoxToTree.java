@@ -18,6 +18,8 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+// Notwendig für FileTreeViewer Klasse - unverändert übernommen von Vorlage 
+// Peter Riehm
 
 public class AddCheckBoxToTree {
 

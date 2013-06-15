@@ -224,7 +224,7 @@ public class Datenauswahl extends javax.swing.JFrame {
         // JFrame zentriert zum Parent positionieren:
         setLocationRelativeTo(getParent());
         
-        if (neueSicherungQuellen.getZielpfad() != "")
+        if (!"".equals(neueSicherungQuellen.getZielpfad()))
         {
             tbZiel.setText(neueSicherungQuellen.getZielpfad());
         }
