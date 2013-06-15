@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 /**
@@ -85,7 +86,7 @@ public class Zippen {
             strLog += System.getProperty("line.separator");
             
             // Zahlen in Log schreiben
-            strLog += "Gesichert " + nFiles + "Dateien  " + nDirectories + "Unterordner";
+            strLog += "Gesichert: " + nFiles + " Dateien  " + nDirectories + " Unterordner";
             fLog = new File(zipName + ".log");
            
             writerLog = new FileWriter(fLog, false);
@@ -213,9 +214,12 @@ public class Zippen {
                     bos.flush();
                     bos.close();
                     bis.close();
+                    
                 }
             }
         }
+
+        JOptionPane.showMessageDialog(null, "Daten erfolgreich zurückgespielt.", "Restore erfolgreich", JOptionPane.INFORMATION_MESSAGE);
         
         zipFile.close();
     }
