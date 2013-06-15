@@ -36,7 +36,8 @@ public class Zippen {
         
     
     
-    public void macheZip(SicherungsObjekt neueSicherungQuellen) {
+    public void macheZip(SicherungsObjekt neueSicherungQuellen) throws IOException {
+        ZeigeLog zeigeLog = new ZeigeLog();
         nFiles = 0;
         nDirectories = 0;
         strLog = "";
@@ -80,6 +81,10 @@ public class Zippen {
             writerLog.close();
             
             zos.close();
+            
+            // Log anzeigen
+            zeigeLog.LeseLog(zipName + ".log");
+            zeigeLog.setVisible(true);
         } catch (IOException e) {
             e.printStackTrace();
         }
