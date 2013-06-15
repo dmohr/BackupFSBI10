@@ -44,8 +44,7 @@ public class Zurueckpielen extends javax.swing.JFrame {
         btnAllesAbwaehlen = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -133,15 +132,19 @@ public class Zurueckpielen extends javax.swing.JFrame {
             JFileChooser destination = new JFileChooser();
             destination.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             destination.setDialogTitle("Zielauswahl");
-            destination.showOpenDialog(null);
-            directory = destination.getSelectedFile().getPath();
+            int nRet = destination.showOpenDialog(null);
             
-            if (!directory.isEmpty())
+            if (nRet == JFileChooser.APPROVE_OPTION)
             {
-                // entpacken.extractArchive();
-                List<String> listeob = listFiles.getSelectedValuesList();
-                listeob.toArray(new String[listeob.size()]);
-                zip.extractArchive(strZipfile, listeob, directory);
+                directory = destination.getSelectedFile().getPath();
+
+                if (!directory.isEmpty())
+                {
+                    // entpacken.extractArchive();
+                    List<String> listeob = listFiles.getSelectedValuesList();
+                    listeob.toArray(new String[listeob.size()]);
+                    zip.extractArchive(strZipfile, listeob, directory);
+                }
             }
         } catch(Exception e) {
             System.out.println("Fehler beim entpacken!");
