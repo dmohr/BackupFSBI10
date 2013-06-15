@@ -2,6 +2,7 @@
 
 
 
+import com.demo.tree.checkbox.SicherungsObjekt;
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.FileWriter;
@@ -14,15 +15,19 @@ public class NewJFrame extends javax.swing.JFrame {
 int wert;
 String swert,Daten;
 
+private SicherungsObjekt neueSicherungQuellen;
+
+ 
     /**
      * Creates new form NewJFrame
      */
-    public NewJFrame() throws Exception{
+    public NewJFrame(SicherungsObjekt neueSicherung) throws Exception{
         initComponents();
         
         wert = jSlider1.getValue();
         swert = String.valueOf(wert);
-       
+        neueSicherungQuellen = neueSicherung;
+        
        File file = new File(System.getProperty("user.dir")+ "\\settings.txt");
        if (file.exists())
        {
@@ -234,6 +239,11 @@ dispose();        // TODO add your handling code here:
         
         Daten = swert + "\r\n" + jTextField2.getText() + "\r\n" + jTextField3.getText() + "\r\n" + jCheckBox1.isSelected();
        //System.out.println(System.getProperty("user.dir"));
+        
+        neueSicherungQuellen.setKompression(wert);
+        neueSicherungQuellen.setZieldatei(jTextField2.getText());
+        neueSicherungQuellen.setZielpfad(jTextField3.getText());
+        neueSicherungQuellen.setChecksumme(jCheckBox1.isSelected());
         
         try {
             BufferedWriter out;

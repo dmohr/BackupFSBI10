@@ -141,7 +141,7 @@ public class Hauptfenster extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         try
         {
-            NewJFrame Optionen = new NewJFrame();
+            NewJFrame Optionen = new NewJFrame(neueSicherung);
             Optionen.setVisible(true);
             Optionen.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); //von Dirk geklaut
         } catch (Exception e) {
