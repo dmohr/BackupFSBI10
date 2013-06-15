@@ -46,6 +46,10 @@ public class Zippen {
         String zipName = neueSicherungQuellen.getZielpfad() + "\\" + System.currentTimeMillis() + ".zip"; //"d:\\zweitezip";
         
         try {
+            strLog += zipName;
+            // Platformunabhängiger Zeilenumbruch wird in den Stream geschrieben
+            strLog += System.getProperty("line.separator");
+            
             File f = new File(zipName);
             System.out.println("Erzeuge Archiv " + f.getCanonicalPath());
             ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(
@@ -60,6 +64,21 @@ public class Zippen {
 
             }
 
+            strLog += System.getProperty("line.separator");
+            strLog += System.getProperty("line.separator");
+            
+            // Zahlen in Log schreiben
+            //writerLog.write("Gesichert " + nFiles + "Dateien  " + nDirectories + "Unterordner");
+            strLog += "Gesichert " + nFiles + "Dateien  " + nDirectories + "Unterordner";
+            fLog = new File(zipName + ".log");
+            // fLog = File.createTempFile("Log", ".txt");
+           
+            writerLog = new FileWriter(fLog, false);
+            writerLog.write(strLog);
+            
+            writerLog.flush();
+            writerLog.close();
+            
             zos.close();
         } catch (IOException e) {
             e.printStackTrace();
