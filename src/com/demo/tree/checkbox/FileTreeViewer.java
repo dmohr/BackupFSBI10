@@ -283,14 +283,14 @@ class DirExpansionListener implements TreeExpansionListener
 }
 
 
-
+/* Nicht notwendig, da Main in Hauptfenster
 public static void main(String argv[]) 
 {
     try {
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
     } catch (Exception evt) {}
     new FileTreeViewer();
-}
+}*/
 }
 
 class IconCellRenderer extends JLabel implements TreeCellRenderer{

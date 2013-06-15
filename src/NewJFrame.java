@@ -84,6 +84,11 @@ private SicherungsObjekt neueSicherungQuellen;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Voreinstellungen");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jSlider1.setMajorTickSpacing(1);
         jSlider1.setMaximum(9);
@@ -274,6 +279,12 @@ jTextField3.setText(jFileChooser1.getSelectedFile().getPath());// TODO add your 
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        // JFrame zentriert zum Parent positionieren:
+        setLocationRelativeTo(getParent());
+    }//GEN-LAST:event_formWindowOpened
 
     /**
    
