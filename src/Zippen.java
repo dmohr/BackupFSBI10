@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
+import javax.swing.JProgressBar;
 
 /**
  *
@@ -36,20 +37,30 @@ public class Zippen {
         
     
     
-    public void macheZip(SicherungsObjekt neueSicherungQuellen) throws IOException {
+    public void macheZip(SicherungsObjekt neueSicherungQuellen, JProgressBar Fortschritt) throws IOException {
         ZeigeLog zeigeLog = new ZeigeLog();
+        int nFileCount = 0;
         nFiles = 0;
         nDirectories = 0;
         strLog = "";
 
         String[] sicherungsQuellen = neueSicherungQuellen.getQuellpfade().toArray(new String[neueSicherungQuellen.getQuellpfade().size()]);
         
-        String zipName = neueSicherungQuellen.getZielpfad() + "\\" + System.currentTimeMillis() + ".zip"; //"d:\\zweitezip";
+        String zipName = neueSicherungQuellen.getZielpfad() + "\\" + neueSicherungQuellen.getZieldatei() + System.currentTimeMillis() + ".zip";
         
         try {
             strLog += zipName;
             // Platformunabhängiger Zeilenumbruch wird in den Stream geschrieben
             strLog += System.getProperty("line.separator");
+            
+            // Anzahl Files bestimmen
+            for( String strQuelle: sicherungsQuellen )
+            {
+                File dirToZipFile = new File(strQuelle);
+                nFileCount += getDirectoryFileCount(dirToZipFile);
+            }
+            
+            Fortschritt.setMaximum(nFileCount);
             
             File f = new File(zipName);
             System.out.println("Erzeuge Archiv " + f.getCanonicalPath());
@@ -59,9 +70,9 @@ public class Zippen {
 
             for( String strQuelle: sicherungsQuellen )
             {
-                File dirToZipFile = new File(strQuelle);            
-
-                zipDir(zipName, strQuelle, dirToZipFile, zos);
+                File dirToZipFile = new File(strQuelle);
+                
+                zipDir(zipName, strQuelle, dirToZipFile, zos, Fortschritt);
 
             }
 
@@ -91,7 +102,7 @@ public class Zippen {
     }
 
     private void zipDir(String zipName, String dirToZip, File dirToZipFile,
-            ZipOutputStream zos) {
+            ZipOutputStream zos, JProgressBar Fortschritt) {
         if (zipName == null || dirToZip == null || dirToZipFile == null
                 || zos == null || !dirToZipFile.isDirectory())
             return;
@@ -104,7 +115,7 @@ public class Zippen {
             for (File f : fileArr) {
                 if (f.isDirectory()) {
                     nDirectories++;
-                    zipDir(zipName, dirToZip, f, zos);
+                    zipDir(zipName, dirToZip, f, zos, Fortschritt);
                     continue;
                 }
                 fis = new FileInputStream(f);
@@ -123,7 +134,7 @@ public class Zippen {
                 //writerLog.write(System.getProperty("line.separator"));
                 strLog += System.getProperty("line.separator");
                 
-                zipFile(zos, f, name);
+                zipFile(zos, f, name, Fortschritt);
                 
             }
         } catch (FileNotFoundException e) {
@@ -133,13 +144,16 @@ public class Zippen {
         }
     }    
     
-    private void zipFile(ZipOutputStream zos, File f, String name)
+    private void zipFile(ZipOutputStream zos, File f, String name, JProgressBar Fortschritt)
     {        
         try {
             FileInputStream fis = new FileInputStream(f);
 
             zos.putNextEntry(new ZipEntry(name));
             nFiles++;
+            Fortschritt.setValue(nFiles);
+            int tst = Fortschritt.getValue();
+            Fortschritt.paintImmediately(Fortschritt.getVisibleRect());
             int len;
             byte[] buffer = new byte[2048];
             while ((len = fis.read(buffer, 0, buffer.length)) > 0) {
@@ -177,11 +191,6 @@ public class Zippen {
             
             if (strFileList.contains(entryFileName))
             {            
-                if ("Log.log".equals(entryFileName))
-                {
-                    continue;
-                }
-
                 File dir = buildDirectoryHierarchyFor(entryFileName, destDir);
                 if (!dir.exists()) {
                     dir.mkdirs();
@@ -221,11 +230,6 @@ public class Zippen {
  
             String entryFileName = entry.getName();
             
-            if ("Log.log".equals(entryFileName))
-            {
-                continue;
-            }
-            
             String str = new String(entryFileName);
             listStr.add(str);
 
@@ -244,6 +248,24 @@ public class Zippen {
        // String entryFileName = entryName.substring(lastIndex + 1);
         String internalPathToEntry = entryName.substring(0, lastIndex + 1);
         return new File(destDir, internalPathToEntry);
+    }
+    
+    public int getDirectoryFileCount(File dir)
+    {
+        int nFileCount = 0;
+        
+        File[] files = dir.listFiles();
+        if (files != null) {
+          for (int i = 0; i < files.length; i++) {
+            if (files[i].isDirectory()) {
+              nFileCount += getDirectoryFileCount(files[i]); // Filezahl summieren
+            }
+            else {
+              nFileCount++;
+            }
+          }
+        }
+        return nFileCount;
     }
 
 }

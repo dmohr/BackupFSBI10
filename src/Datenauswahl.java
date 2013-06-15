@@ -194,7 +194,7 @@ public class Datenauswahl extends javax.swing.JFrame {
         {
             try {                
                 Zippen zip = new Zippen();
-                zip.macheZip(neueSicherungQuellen);
+                zip.macheZip(neueSicherungQuellen, Fortschritt);
             } catch (Exception ex) {
                 Logger.getLogger(Datenauswahl.class.getName()).log(Level.SEVERE, null, ex);
             }
