@@ -70,6 +70,7 @@ public FileTreeViewer(SicherungsObjekt neueSicherung)
     setTitle("Bitte wählen Sie die zu sichernden Ordner aus...");
     setResizable(false);
     setSize(400, 600);
+    setAlwaysOnTop(true);
     
     SimplePanel panel = new SimplePanel();
     panel.setLayout(null);
@@ -80,7 +81,7 @@ public FileTreeViewer(SicherungsObjekt neueSicherung)
     WindowListener wndCloser = new WindowAdapter()
     {
         public void windowClosing(WindowEvent e){
-            setVisible(false); //you can't see me!
+            //setVisible(false); //you can't see me!
             dispose(); //Destroy the JFrame object
         }
     };
@@ -102,39 +103,6 @@ private void formWindowOpened(java.awt.event.WindowEvent evt) {
     // TODO add your handling code here:
     // JFrame zentriert zum Parent positionieren:
     setLocationRelativeTo(getParent());
-    /*
-    if (neueSicherungQellen.getQuellpfade().size() > 0)
-    {
-        for (String item : neueSicherungQellen.getQuellpfade())
-        {
-            TreePath tp = new TreePath(item);
-            getCheckTreeManager().getSelectionModel().addSelectionPath(tp);
-        }
-        //getCheckTreeManager().setSelectionModel(neueSicherungQellen.getQuellpfade().get(i));
-        
-    }/*
-    TreePath[] paths=getCheckTreeManager().getSelectionModel().getSelectionPaths();
-    
-    if(paths != null){
-        ArrayList<String> quellpfade = new ArrayList<>();
-        for(TreePath tp : paths){
-            String pfad = "";
-            int x = tp.getPathCount();
-            for(int i=1; i < x; i++)
-            {
-                String pfadteilbereich = tp.getPathComponent(i).toString();
-                if (pfadteilbereich.endsWith("\\"))
-                {
-                    pfadteilbereich = pfadteilbereich.replace("\\", "");
-                }
-                pfad = pfad + pfadteilbereich + "\\";
-            }
-            quellpfade.add(pfad);
-            //d.add(pfad);
-            getCheckTreeManager().getSelectionModel().removeSelectionPath(tp);
-        }
-        neueSicherungQellen.setQuellpfade(quellpfade);
-    }*/
 }
 
 class SimplePanel extends JPanel 
