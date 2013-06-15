@@ -165,11 +165,13 @@ public class Datenauswahl extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // FileTreeViewer aufrufen und Sicherungsobjekt übergeben (Peter Riehm)
     private void Ordnerauswaehlen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ordnerauswaehlen
         com.demo.tree.checkbox.FileTreeViewer ordnerwahl = new com.demo.tree.checkbox.FileTreeViewer(neueSicherungQuellen);
         ordnerwahl.setVisible(true);   
     }//GEN-LAST:event_Ordnerauswaehlen
 
+    // Fenster zur Zielpfadauswahl aufrufen und gegebenenfalls Pfad aus den Voreinstellungen übergeben (Peter Riehm)
     private void SpeicherButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpeicherButtonActionPerformed
         // TODO add your handling code here:
         JFileChooser ordnerwahlspeichern = new JFileChooser();
@@ -190,10 +192,12 @@ public class Datenauswahl extends javax.swing.JFrame {
         dispose(); //Destroy the JFrame object
     }//GEN-LAST:event_AbbrechenActionPerformed
 
+    // Sicherung starten
     private void SicherungButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SicherungButtonActionPerformed
         // TODO add your handling code here:
         if (neueSicherungQuellen.getQuellpfade().size() > 0 && !"".equals(neueSicherungQuellen.getZielpfad().trim()))
         {
+            // Sicherung durchführen (Dirk Mohr)
             try {                
                 Zippen zip = new Zippen();
                 zip.macheZip(neueSicherungQuellen, Fortschritt);
@@ -204,6 +208,7 @@ public class Datenauswahl extends javax.swing.JFrame {
         }
         else
         {
+            // Fehlerbehandlung (Peter Riehm)
             if (neueSicherungQuellen.getQuellpfade().size() <= 0 && "".equals(neueSicherungQuellen.getZielpfad().trim()))
             {
                 JOptionPane.showMessageDialog(null, "Bitte wählen Sie die Ordner aus, welche Sie sichern möchten, und den Speicherort, wohin Sie sichern möchten.", "Hinweis", JOptionPane.INFORMATION_MESSAGE); 
@@ -224,6 +229,7 @@ public class Datenauswahl extends javax.swing.JFrame {
         // JFrame zentriert zum Parent positionieren:
         setLocationRelativeTo(getParent());
         
+        //  Wenn ein Standardzielpfad vorhanden ist, diesen anzeigen
         if (!"".equals(neueSicherungQuellen.getZielpfad()))
         {
             tbZiel.setText(neueSicherungQuellen.getZielpfad());

@@ -133,12 +133,14 @@ public class Hauptfenster extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_CloseProgram
 
+    // Fenster für neue Sicherung zu Erstellen aufrufen und das Sicherungsobjekt mit übergeben (Peter Riehm)
     private void SaveData(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveData
         Datenauswahl Datenauswahlfenster = new Datenauswahl(neueSicherung);
         Datenauswahlfenster.setVisible(true);
         Datenauswahlfenster.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); //von Dirk geklaut
     }//GEN-LAST:event_SaveData
-
+    
+    // Menü für die Voreinstellungen aufrufen (Alexander Nann)
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         try
         {
@@ -150,6 +152,7 @@ public class Hauptfenster extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    // Zurückspielen starten (Dirk Mohr)
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String strZipFile;
         JFileChooser zipwahl = new JFileChooser();
