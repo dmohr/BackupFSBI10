@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileReader;
+import javax.swing.JFileChooser;
 
 
 public class NewJFrame extends javax.swing.JFrame {
@@ -264,8 +265,12 @@ dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-jFileChooser1.showOpenDialog(jLabel1);   
-jTextField3.setText(jFileChooser1.getSelectedFile().getPath());// TODO add your handling code here:
+        int nRet = jFileChooser1.showOpenDialog(jLabel1);
+        
+        if (nRet == JFileChooser.APPROVE_OPTION)
+        {
+            jTextField3.setText(jFileChooser1.getSelectedFile().getPath());// TODO add your handling code here:
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
