@@ -3,12 +3,12 @@
 
 
 import com.demo.tree.checkbox.SicherungsObjekt;
-import java.io.BufferedWriter;
 import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JFileChooser;
 
 
@@ -20,36 +20,36 @@ private SicherungsObjekt neueSicherungQuellen;
 
  
     /**
-     * Creates new form NewJFrame
+     * @author Alexander Nann
      */
-    public NewJFrame(SicherungsObjekt neueSicherung) throws Exception{
+    public NewJFrame(SicherungsObjekt neueSicherung) throws Exception{   //Konstruktor Nimmt sicherungsobjekt entgegen
         initComponents();
         
-        wert = jSlider1.getValue();
-        swert = String.valueOf(wert);
-        neueSicherungQuellen = neueSicherung;
+        wert = jSlider1.getValue();                     //stand des Sliders wird in die Variable Wert geschrieben
+        swert = String.valueOf(wert);                   //int Variable "wert" wird in einen String Konvertiert
+        neueSicherungQuellen = neueSicherung;           //Objekt wird initialisiert
         
-       File file = new File(System.getProperty("user.dir")+ "\\settings.txt");
-       if (file.exists())
+       File file = new File(System.getProperty("user.dir")+ "\\settings.txt");      //neues Fileobjekt
+       if (file.exists())                                   //prüfen ob settings.txt schon besteht
        {
            
-           FileReader fr = new FileReader(System.getProperty("user.dir")+ "\\settings.txt");
+           FileReader fr = new FileReader(System.getProperty("user.dir")+ "\\settings.txt"); // wenn Datei schon besteht wird diese Zeilenweise eingelesen als String
             try (BufferedReader br = new BufferedReader(fr)) {
                 String comp = br.readLine();
-                jSlider1.setValue(Integer.parseInt(comp));
+                jSlider1.setValue(Integer.parseInt(comp));  //parse String 2 int
                 String filen = br.readLine();
                 jTextField2.setText(filen);
                 String pathn = br.readLine();
                 jTextField3.setText(pathn);
                 String checks = br.readLine();
-                boolean Checksum = Boolean.parseBoolean(checks);
+                boolean Checksum = Boolean.parseBoolean(checks); //parse String 2 Boolean
                 if (Checksum == true){
-                    jCheckBox1.setSelected(Checksum);
+                    jCheckBox1.setSelected(Checksum);       //wenn True dann setzte Haken bei jcheckbox
                 }
                 
             }
        
-       } else 
+       } else // wenn datei nicht existiert setzte standard werte
        {
            
                
@@ -226,9 +226,9 @@ private SicherungsObjekt neueSicherungQuellen;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
-        wert = jSlider1.getValue();
+        wert = jSlider1.getValue();     
         swert = String.valueOf(wert);
-        jTextField1.setText(swert);
+        jTextField1.setText(swert);     //wenn slider verschoben wird, wird der wert in jTextfield1 geändert (compression level)
     }//GEN-LAST:event_jSlider1StateChanged
 
     private void jTextField1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTextField1PropertyChange
@@ -236,40 +236,40 @@ private SicherungsObjekt neueSicherungQuellen;
     }//GEN-LAST:event_jTextField1PropertyChange
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-dispose();        // TODO add your handling code here:
+dispose();        //Abbrechen und Fenster schließen
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
+        //OK Button
         
+        Daten = swert + "\r\n" + jTextField2.getText() + "\r\n" + jTextField3.getText() + "\r\n" + jCheckBox1.isSelected();  // String welcher Später in die Settings.txt geschrieben wird
+
         
-        Daten = swert + "\r\n" + jTextField2.getText() + "\r\n" + jTextField3.getText() + "\r\n" + jCheckBox1.isSelected();
-       //System.out.println(System.getProperty("user.dir"));
-        
-        neueSicherungQuellen.setKompression(wert);
-        neueSicherungQuellen.setZieldatei(jTextField2.getText());
-        neueSicherungQuellen.setZielpfad(jTextField3.getText());
-        neueSicherungQuellen.setChecksumme(jCheckBox1.isSelected());
+        neueSicherungQuellen.setKompression(wert);                          //Daten werden zusätzlich an das Objekt über setter methoden übergeben
+        neueSicherungQuellen.setZieldatei(jTextField2.getText());           //Daten werden zusätzlich an das Objekt über setter methoden übergeben
+        neueSicherungQuellen.setZielpfad(jTextField3.getText());            //Daten werden zusätzlich an das Objekt über setter methoden übergeben
+        neueSicherungQuellen.setChecksumme(jCheckBox1.isSelected());        //Daten werden zusätzlich an das Objekt über setter methoden übergeben
         
         try {
             BufferedWriter out;
-            out = new BufferedWriter(new FileWriter(System.getProperty("user.dir")+ "\\settings.txt"));
-            out.write(Daten);
-            out.close();
+            out = new BufferedWriter(new FileWriter(System.getProperty("user.dir")+ "\\settings.txt"));  //Settings.txt wird erstellt 
+            out.write(Daten);                   //String Daten wird in die Settings.txt geschrieben.
+            out.close();                        //settings.txt wird geschlossen
             } 
         
             catch (IOException e) {
             }
-      dispose();
+      dispose();            // Fenster wird geschlossen
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int nRet = jFileChooser1.showOpenDialog(jLabel1);
         
-        if (nRet == JFileChooser.APPROVE_OPTION)
+        if (nRet == JFileChooser.APPROVE_OPTION)        //Werden nur daten vom Filechooser übergeben wenn auch OK gedrückt wurde
         {
-            jTextField3.setText(jFileChooser1.getSelectedFile().getPath());// TODO add your handling code here:
+            jTextField3.setText(jFileChooser1.getSelectedFile().getPath());         //Pfad von Filechooser (directory only)
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -286,9 +286,8 @@ dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        // JFrame zentriert zum Parent positionieren:
-        setLocationRelativeTo(getParent());
+        
+        setLocationRelativeTo(getParent());             // JFrame zentriert zum Parent positionieren:
     }//GEN-LAST:event_formWindowOpened
 
     /**
