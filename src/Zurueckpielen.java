@@ -10,7 +10,7 @@ import javax.swing.JFileChooser;
 
 /**
  *
- * @author FSBI10
+ * @author Dirk Mohr
  */
 public class Zurueckpielen extends javax.swing.JFrame {
     private String strZipfile;
@@ -122,18 +122,19 @@ public class Zurueckpielen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    // Schaltfläsche zum Zurückspielen wurde gedrückt
     private void btnZurueckpielenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZurueckpielenActionPerformed
         Zippen zip = new Zippen();
         String directory;
         
         try {
-            // Ziel wälen
+            // Ziel wählen
             JFileChooser destination = new JFileChooser();
             destination.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             destination.setDialogTitle("Zielauswahl");
             int nRet = destination.showOpenDialog(null);
             
+            // Nur wenn Okay gedrückt => weiter machen
             if (nRet == JFileChooser.APPROVE_OPTION)
             {
                 directory = destination.getSelectedFile().getPath();
@@ -169,7 +170,7 @@ public class Zurueckpielen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAllesAbwaehlenActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-dispose();        // TODO add your handling code here:
+        dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -183,16 +184,18 @@ dispose();        // TODO add your handling code here:
         Zippen zip = new Zippen();
         
         try {
+            // Zip-Inhalt (Filenamen) in Stringarray
             String[] str = zip.leseZipinhalt(strZipfile);
 
+            // Model für jList erzeugen und füllen
             DefaultListModel model = new DefaultListModel();
-            
             
             for (int x=0; x<str.length; x++)
             {
                 model.addElement(str[x]);
             }
                         
+            // jList befüllen
             listFiles.setModel(model);
         } catch(Exception e) {
             System.out.println("Fehler beim entpacken!");

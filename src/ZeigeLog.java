@@ -3,9 +3,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +13,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author FSBI10
+ * @author Dirk Mohr
  */
 public class ZeigeLog extends javax.swing.JFrame {
 
@@ -92,6 +89,7 @@ public class ZeigeLog extends javax.swing.JFrame {
         String strLog = "";
         String line = "";
 
+        // Log-Datei zeilenweise auslesen
         try {
             fr = new FileReader(strFile);
             try (BufferedReader br = new BufferedReader(fr)) {
@@ -109,7 +107,7 @@ public class ZeigeLog extends javax.swing.JFrame {
             }
         }
 
-        
+        // String mit Log-Einträgen in TextArea anzeigen
         txtLog.setText(strLog);
     }
     
